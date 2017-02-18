@@ -22,6 +22,23 @@ class HuffmanTree(object):
         HuffmanTree.traverse(self, node.getLeftChild(), e_char)
         HuffmanTree.traverse(self, node.getRightChild(), e_char)
 
+    def determineDecoding(self, node, e_char, s_char):
+        if(node is None):
+            return
+        b = True
+        for s in node.getSymbols():
+            if s == s_char:
+                b = False
+        if(b == True):
+            e_char.pop()
+            return
+        if(node.isLeaf()):
+            return
+        e_char.append('0')
+        HuffmanTree.determineEncoding(self, node.getLeftChild(), e_char, s_char)
+        e_char.append('1')
+        HuffmanTree.determineEncoding(self, node.getRightChild(), e_char, s_char)
+
     def determineEncoding(self, node, e_char, s_char):
         if(node is None):
             return
@@ -57,22 +74,7 @@ class HuffmanTree(object):
 
     def decode(self, bin_string):
         end_string = ''
-        print(bin_string)
-        node = self.getRoot()
         for c in bin_string:
-            #print(node.getSymbols())
-            if(c == '0'):
-                node = node.getLeftChild()
-                if(node.isLeaf()):
-                    end_string += next(iter(node.getSymbols()))
-                    node = self.getRoot()
-            elif(c == '1'):
-                node = node.getRightChild()
-                if(node.isLeaf()):
-                    end_string += next(iter(node.getSymbols()))
-                    node = self.getRoot()
-        print end_string
-        return end_string
 
 
     @staticmethod
@@ -93,6 +95,7 @@ class HuffmanTree(object):
 
     @staticmethod
     def findTwoLowestWeightNodes(list_of_nodes):
+        ## your code here
         return(list_of_nodes.pop(), list_of_nodes.pop())
         pass
 

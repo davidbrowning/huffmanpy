@@ -17,4 +17,21 @@ print(hn1 == hn2)
 hn3 = hn.HuffmanTreeNode(symbols=set(['A']), weight=8)
 print(hn1 == hn3)
 
+ut.unit_test_00()
+hnodes = [hn.HuffmanTreeNode(symbols=set([kv[0]]), weight=kv[1])
+for kv in [('A', 4), ('B', 3), ('C', 1), ('D', 1)]]
+htr = h.HuffmanTree.fromListOfHuffmanTreeNodes(hnodes)
+
+htr.encodeSymbol('C')
+htr.encodeSymbol('B')
+htr.encodeSymbol('D')
+
+ut.unit_test_01()
+ut.unit_test_04()
+ut.unit_test_05()
+ut.unit_test_06()
+ut.unit_test_07()
+ut.unit_test_08()
+
+
 
