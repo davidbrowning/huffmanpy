@@ -1,7 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 from array import array
-import pickle as pickle
+import _pickle as pickle
 from HuffmanTreeNode import HuffmanTreeNode
 from HuffmanTree import HuffmanTree
 
@@ -9,7 +9,7 @@ class BinHuffmanTree(HuffmanTree):
 
     def __init__(self, root=None):
         super(BinHuffmanTree, self).__init__(root=root)
-
+    
     def encodeText(self, txt):
         bits = super(BinHuffmanTree, self).encodeText(txt)
         n = len(bits)
@@ -24,11 +24,11 @@ class BinHuffmanTree(HuffmanTree):
             if r > 0:
                 bits = bits + '0' * (8 - r)
                 padded_bits = 8 - r
-            for i in xrange(0, len(bits), 8):
+            for i in range(0, len(bits), 8):
                 byte = bits[i:i+8][::-1]
                 #print byte
                 bin_array.append(int(byte, 2))
-        return bin_array, len(bits)/8, padded_bits
+        return bin_array, len(bits)//8, padded_bits
 
     def encodeTextToFile(self, txt, fp):
         bin_array, num_bytes, padded_bits = self.encodeText(txt)
@@ -49,12 +49,12 @@ class BinHuffmanTree(HuffmanTree):
         num_bytes, padded_bits = 0, 0
         bin_array = array('B')
         with open(fp + '_pb.txt', 'r') as inf:
-            num_bytes = int(inf.readline())
-            padded_bits = int(inf.readline())
+            num_bytes = int(inf.readline().rstrip())
+            padded_bits = int(inf.readline().rstrip())
         with open(fp + '.bin', 'rb') as inf:
             bin_array.fromfile(inf, num_bytes)
         return self.decode(bin_array, padded_bits)
-
+    
     def decode(self, bin_array, padded_bits):
         bits = ''
         for byte in bin_array:
@@ -66,4 +66,9 @@ class BinHuffmanTree(HuffmanTree):
         with open(fp, 'wb') as outfile:
             pickle.dump(self, outfile)
             outfile.flush()
-
+    
+    @staticmethod
+    def load(fp):
+        with open(fp, 'rb') as infile:
+            bht = pickle.load(infile)
+            return bht

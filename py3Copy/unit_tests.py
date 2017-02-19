@@ -10,9 +10,9 @@ ht_nodes = [HuffmanTreeNode(symbols=set([kv[0]]), weight=kv[1])
 
 txt0 = 'AABCCDEFG'
 txt1 = 'AABBBBHHHFFGGGDDDDEEEECCCCCCCCDDDDDHHHHHAAAAAA'
-work_dir = '../data/'
+work_dir = '/home/ubuntu_hamor/teaching/CS3430/S17/hw/hw_s2017/hw05/data/'
 
-def unit_test_01():
+def unit_test_01():    
     ht = HuffmanTree.fromListOfHuffmanTreeNodes(ht_nodes)
     for s in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']:
         print(s + ' --> ' + ht.encodeSymbol(s))
@@ -79,7 +79,7 @@ def unit_test_05():
         dec0 = bht.decodeTextFromFile(work_dir + 'moby_dick_ch02')
         assert dec0 == data
         print('Assertion passed!')
-
+    
 def unit_test_06():
     cfm = CharFreqMap.computeCharFreqMap(work_dir + 'moby_dick_ch01.txt')
     nodes = HuffmanTree.freqMapToListOfHuffmanTreeNodes(cfm)
@@ -107,4 +107,4 @@ def unit_test_08():
         dec02 = bht02.decodeTextFromFile(work_dir + 'moby_dick_ch02')
         assert dec02 == data
         print('Assertion passed!')
-
+        
